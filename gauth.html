@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Rejam — Google connection</title>
+<style>body{font:16px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;background:#fff;color:#111}@media(prefers-color-scheme:dark){body{background:#0f1115;color:#f3f4f6}}div{text-align:center;padding:24px}a{color:#2563eb}</style></head>
+<body><div><p id="m">Connecting… / Ulanmoqda…</p><p><a href="/">rejam.uz</a></p></div>
+<script>
+// Google redirects here; forward the code to the bot's own Mini App origin (where the Telegram session is kept).
+// The target is derived from the state prefix "a<appId>_" and restricted to https://app<digits>.tgcloud.ai.
+(function () {
+  var q = new URLSearchParams(location.search), st = q.get('state') || '', m = /^a(\d{6,14})_/.exec(st);
+  if (!m || !(q.get('code') || q.get('error'))) { document.getElementById('m').textContent = 'Open this page from the Rejam bot. / Bu sahifani Rejam botidan oching.'; return; }
+  var p = new URLSearchParams();
+  ['code', 'error', 'state'].forEach(function (k) { if (q.get(k)) p.set(k, q.get(k)); });
+  location.replace('https://app' + m[1] + '.tgcloud.ai/gauth?' + p.toString());
+})();
+</script></body></html>
